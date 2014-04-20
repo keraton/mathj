@@ -30,7 +30,7 @@ Math using object perspective. Instead of created a specific method to define a 
 
 MathJ is limited to integer type operation, it can handles : add, minus, multiply and divide operation.
 
-MathJ provide a simple String parser to interpret a mathematical expression to a java object
+MathJ provides a simple String parser to interpret a mathematical expression to a java object
 
     @Test public void // 2 / ((1 + 1) + 2
     should_2_divide_$$1_plus_1££_plus_2() throws SyntaxException, ValidationReaderException {
