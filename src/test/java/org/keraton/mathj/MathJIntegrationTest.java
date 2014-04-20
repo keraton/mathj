@@ -38,25 +38,22 @@ public class MathJIntegrationTest {
     should_run_integration_test() {
         Context context = new MapContext();
         MathJ mathJ = new MathJ(context);
-        mathJ.addContext("x")
-             .addContext("y");
 
         Equation eq_2x_add_2y = asEq(asConst(2)).multiply(asVar("x"))
                                                                 .add(
                                 asEq(asConst(2)).multiply(asVar("y"))
                                 );
+        // By default x=0, y=0
+        mathJ.addContext("x")
+             .addContext("y");
 
         // 2(0) + 2(0) = 0
         assertEquals(0, mathJ.apply(eq_2x_add_2y).value());
 
         // 2(3) + 2(4) = 14
-        context.setContext("x", asConst(3))
+        mathJ.setContext("x", asConst(3))
                 .setContext("y", asConst(4));
         assertEquals(14, mathJ.apply(eq_2x_add_2y).value());
-
-        // Test when we set the eq in the context
-        context.setContext("eq", eq_2x_add_2y);
-        assertEquals(14, mathJ.apply(asVar("eq")).value());
 
     }
 }
