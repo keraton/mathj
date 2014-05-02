@@ -106,6 +106,36 @@ public class FunctionStringReader implements FunctionReader {
         return function;
     }
 
+    private Function parseConstVar(Lexeme lexeme, Function function) throws ValidationReaderException, SyntaxException {
+        return parseAfterConstVar(asEq(function).multiply(lexemeToVar(lexeme)));
+    }
+
+    private Function parseAfterConstVar(Function function) throws ValidationReaderException, SyntaxException {
+        Lexeme lexeme = lexer.nextLexeme();
+        switch (lexeme.getType()) {
+            case PLUS:
+                function = parsePlus(function);
+                break;
+            case MINUS:
+                function = parseMinus(function);
+                break;
+            case MULTIPLY:
+                function = parseMultiply(function);
+                break;
+            case DIVIDE:
+                function = parseDivide(function);
+                break;
+            case CLOSE:
+                close();
+                break;
+            case EOD:
+                break;
+            default:
+                return throwSyntaxException();
+        }
+        return function;
+    }
+
     private Function throwSyntaxException() throws SyntaxException {
         throw new SyntaxException("Error Syntax at : " + lexer.printPosition());
     }
@@ -129,10 +159,6 @@ public class FunctionStringReader implements FunctionReader {
                 throwSyntaxException();
         }
         return function;
-    }
-
-    private Function parseConstVar(Lexeme lexeme, Function function) throws ValidationReaderException, SyntaxException {
-        return asEq(function).multiply(lexemeToVar(lexeme));
     }
 
     private Function parseOpen(Function function) throws ValidationReaderException, SyntaxException {
