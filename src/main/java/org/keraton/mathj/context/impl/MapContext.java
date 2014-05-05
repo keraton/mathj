@@ -4,6 +4,7 @@ import org.keraton.mathj.context.Context;
 import org.keraton.mathj.func.Function;
 import org.keraton.mathj.func.impl.Constant;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,7 +32,7 @@ import java.util.Map;
  * SOFTWARE.
  */
 
-public class MapContext implements Context {
+public class MapContext implements Context, Serializable {
 
     private Map<String, Function> map = new HashMap<String, Function>();
 
